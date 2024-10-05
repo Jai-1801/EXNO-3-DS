@@ -1,20 +1,16 @@
-# EXPERIMENT 3-FEATURE ENCODING AND TRANSFORMATION
+# EXNO-3-DS
 
-### NAME: JAI SURYA R
-### REG NO: 212223230084
-### DATE:05-10-2024
-
-## AIM:
+# AIM:
 To read the given data and perform Feature Encoding and Transformation process and save the data to a file.
 
-## ALGORITHM:
+# ALGORITHM:
 STEP 1:Read the given Data.
 STEP 2:Clean the Data Set using Data Cleaning Process.
 STEP 3:Apply Feature Encoding for the feature in the data set.
 STEP 4:Apply Feature Transformation for the feature in the data set.
 STEP 5:Save the data to the file.
 
-## FEATURE ENCODING:
+# FEATURE ENCODING:
 1. Ordinal Encoding
 An ordinal encoding involves mapping each unique label to an integer value. This type of encoding is really only appropriate if there is a known relationship between the categories. This relationship does exist for some of the variables in our dataset, and ideally, this should be harnessed when preparing the data.
 2. Label Encoding
@@ -24,7 +20,7 @@ Binary encoding converts a category into binary digits. Each binary digit create
 4. One Hot Encoding
 We use this categorical data encoding technique when the features are nominal(do not have any order). In one hot encoding, for each level of a categorical feature, we create a new variable. Each category is mapped with a binary variable containing either 0 or 1. Here, 0 represents the absence, and 1 represents the presence of that category.
 
-## Methods Used for Data Transformation:
+# Methods Used for Data Transformation:
   # 1. FUNCTION TRANSFORMATION
 • Log Transformation
 • Reciprocal Transformation
@@ -34,286 +30,213 @@ We use this categorical data encoding technique when the features are nominal(do
 • Boxcox method
 • Yeojohnson method
 
-## CODING AND OUTPUT:
+# CODING AND OUTPUT:
+```
+Developed by : JAI SURYA R
+Reg No : 212223230084
+```
 
-### IMPORT THE PANDAS LIBRARY AND READ THE CSV FILE:
-```PYTHON
+```python
 import pandas as pd
-df=pd.read_csv("Encoding Data.csv")
+df=pd.read_csv("/content/Encoding Data.csv")
 df
 ```
-### OUTPUT:
-![alt text](Screenshot/image.png)
+![image](https://github.com/user-attachments/assets/861ca668-54a2-486a-a75b-4db3e46d361c)
 
-## PERFORMING THE ORDINAL ENCODER:
-```PYTHON
+```python
 from sklearn.preprocessing import LabelEncoder,OrdinalEncoder
-```
-
-### TRANSOFORMING THE CATEGORICAL DATA INTO ORDINAL FORM:
-```PYTHON
 pm=['Hot','Warm','Cold']
-
-el=OrdinalEncoder(categories=[pm])
-
-el.fit_transform(df[["ord_2"]])
+e1=OrdinalEncoder(categories=[pm])
+e1.fit_transform(df[["ord_2"]])
 ```
-### OUTPUT:
+![image](https://github.com/user-attachments/assets/c46bcfc8-24cb-418d-b65f-e5c7c189bf9e)
 
-![alt text](Screenshot/image-1.png)
 
-### TRANSFORMS THE COLUMN:
-```PYTHON
-df['bo2']=el.fit_transform(df[["ord_2"]])
 
+```python
+df['bo2']=e1.fit_transform(df[["ord_2"]])
 df
 ```
-### OUTPUT:
+![Screenshot 2024-10-01 112751](https://github.com/user-attachments/assets/13c12a60-747c-4cb8-a926-69e7cc1cfccf)
 
-![alt text](Screenshot/image-2.png)
 
-### CHANGE THE CATEGORICAL INTO NUMERICAL COLUN:
-```PYTHON
-df['ord_2']=el.fit_transform(df[["ord_2"]])
 
-df
+```python
+le=LabelEncoder()
+dfc=df.copy()
+dfc['ord_2']=le.fit_transform(dfc['ord_2'])
+dfc
 ```
-### OUTPUT:
-![alt text](Screenshot/image.1.png)
+![image](https://github.com/user-attachments/assets/eaa14681-695e-42af-b895-eb82314d26b1)
 
-## PERFORMING THE ONEHOTENCODER:
-```PYTHON
+
+
+```python
 from sklearn.preprocessing import OneHotEncoder
-```
-```PYTHON
-ohe=OneHotEncoder(sparse=False)
+ohe=OneHotEncoder(sparse_output=False)
 df2=df.copy()
-
-df2
-```
-### OUTPUT:
-![alt text](Screenshot/image-4.png)
-
-```PYTHON
 enc=pd.DataFrame(ohe.fit_transform(df2[["nom_0"]]))
-enc
 ```
+![image](https://github.com/user-attachments/assets/0b893acb-e20b-46e5-b032-6fd3e7b58145)
 
-### OUTPUT:
-![alt text](Screenshot/image-3.png)
 
-### ADDING THE ONEHOTENCODER DATA TRANSFORMED INTO THE ORIGINAL DATASET:
-```PYTHON
+```python
 df2=pd.concat([df2,enc],axis=1)
-
 df2
 ```
-### OUTPUT:
-![alt text](Screenshot/image5.png)
+![image](https://github.com/user-attachments/assets/25c8e2ff-3f5c-44b9-a873-b9a550abdd32)
 
-### KNOW THE PRESENCE AN ABSENCE OF DATA VALUES:
-```PYTHON
+```python
 pd.get_dummies(df2,columns=["nom_0"])
 ```
-### OUTPUT:
-![alt text](Screenshot/image6.png)
+![image](https://github.com/user-attachments/assets/d44d08aa-be43-488d-984d-391f4f0042d8)
 
-### INSTALLED THE CATEGORY ENCODERS:
-```PYTHON
+
+
+```python
 pip install --upgrade category_encoders
 ```
+![Screenshot 2024-10-01 113423](https://github.com/user-attachments/assets/00fa038c-43ae-45b0-9f04-2367a472c37c)
 
-### IMPORT BINARY ENCODER FROM CATEGORY ENCODERS:
-```PYTHON
+
+
+```python
 from category_encoders import BinaryEncoder
-```
-### READ THE CSV FILE:
-```PYTHON
-df=pd.read_csv("data.csv")
-
+df=pd.read_csv("/content/data.csv")
 df
 ```
-### OUTPUT:
-![alt text](Screenshot/image7.png)
+![image](https://github.com/user-attachments/assets/d06d39c7-08ad-401d-87a6-d75adc952c76)
 
-### TRANSFORMING THE CATEGORICAL DATA INTO BINARY ENCODER:
-```PYTHON
+
+
+```python
 be=BinaryEncoder()
-
 nd=be.fit_transform(df['Ord_2'])
-
 dfb=pd.concat([df,nd],axis=1)
-
-dfb1=dfb.copy()
-
-dfb1
+dfb1=df.copy()
+dfb
 ```
-### OUTPUT:
-![alt text](Screenshot/image8.png)
+![image](https://github.com/user-attachments/assets/573e1f48-66ff-4c93-bcd9-c1a079422901)
 
-### IMPORT THE TARGET ENCODER FROM CATEGORY ENCODERS
-```PYTHON
+
+```python
 from category_encoders import TargetEncoder
 te=TargetEncoder()
-cc=df.copy()
-new=te.fit_transform(X=cc["City"],y=cc["Target"])
-cc=pd.concat([cc,new],axis=1)
-cc
+CC=df.copy()
+new=te.fit_transform(X=CC["City"],y=CC["Target"])
+CC=pd.concat([CC,new],axis=1)
+CC
 ```
-### OUTPUT:
-![alt text](Screenshot/image9.png)
+![image](https://github.com/user-attachments/assets/d551e20d-ddf0-4237-aef0-8e51895b535e)
 
-### IMPORT PANDAS, SCIPY AND NUMPY TO PERFORM FEATURE TRANFORMATION:
-```PYTHON
+
+
+```python
 import pandas as pd
 from scipy import stats
 import numpy as np
-```
-### READ THE CSV FILE:
-```PYTHON
-df=pd.read_csv("Data_to_Transform.csv")
+df=pd.read_csv("/content/Data_to_Transform.csv")
 df
 ```
-### OUTPUT:
-![alt text](Screenshot/image10.png)
+![image](https://github.com/user-attachments/assets/cfc2654f-eb7d-428e-896a-9ee6eccf26fc)
 
-### FIND THE SKEWNESS OF THE DATASETS:
-```PYTHON
+
+
+```python
 df.skew()
 ```
-### OUTPUT:
-![alt text](Screenshot/image11.png)
+![Screenshot 2024-10-01 113655](https://github.com/user-attachments/assets/45d05009-d673-4d44-a8f0-bb839727254e)
 
-## PERFORMING MATHEMATICAL OPERATIONS FOR THE GIVEN DATASET TO FIND THE SKEWNESS:
-### LOGARITHM:
-```PYTHON
+
+
+```python
 np.log(df["Highly Positive Skew"])
 ```
-### OUTPUT:
-![alt text](Screenshot/image12.png)
+![image](https://github.com/user-attachments/assets/e54c07d4-0f38-4530-a630-291190b49078)
 
-### SQUARE ROOT:
-```PYTHON
-df["Highly Positive Skew"]=np.sqrt(df["Highly Positive Skew"])
+
+
+```python
+np.reciprocal(df["Moderate Positive Skew"])
+```
+![image](https://github.com/user-attachments/assets/eae57994-bf82-4abd-9a3b-fae00cc2eff4)
+
+
+```python
+np.sqrt(df["Highly Positive Skew"])
+```
+![image](https://github.com/user-attachments/assets/61b4bd41-09f9-4f04-8dc8-5b45405d4139)
+
+
+```python
+np.square(df["Highly Positive Skew"])
+```
+
+![image](https://github.com/user-attachments/assets/a3a1d80d-1499-4a91-b9a5-bb043b911c5a)
+
+
+```python
+df["Highly Positive Skew_boxcox"], parameters=stats.boxcox(df["Highly Positive Skew"])
 df
 ```
-### OUTPUT:
-![alt text](Screenshot/image13.png)
+![image](https://github.com/user-attachments/assets/7f960eba-b8e5-43d3-a37b-24f30d5a4f97)
 
-### SQUARE: 
-```PYTHON
-df["Moderate Negative Skew"]=np.square(df["Moderate Negative Skew"])
+
+```python
+df["Moderate Negative Skew_yeojohnson"],parameters=stats.yeojohnson(df["Moderate Negative Skew"])
 df
 ```
-### OUTPUT:
-![alt text](Screenshot/image14.png)
+![image](https://github.com/user-attachments/assets/6edb8d31-a26f-436f-ad7c-baec90af188a)
 
-### SQUARE ROOT:
-```PYTHON
-np.sqrt(df["Highly Negative Skew"])
-```
-### OUTPUT:
-![alt text](Screenshot/image15.png)
 
-### FIND THE SKEWNESS:
-```PYTHON
-df.skew()
-```
-### OUTPUT:
-![alt text](Screenshot/image16.png)
-
-## TRANSFORMS NON-NORMAL DATA INTO A NORMAL DISTRIBUTION:(ONLY POSITIVE VALUE)
-### BOXCOX TRANFORMATION:
-```PYTHON
-df['Highly Positive Skew_boxcox'],parameters=stats.boxcox(df['Highly Positive Skew'])
-df
-```
-### OUTPUT:
-![alt text](Screenshot/image17.png)
-
-## TRANSFORMS NON-NORMAL DATA INTO A NORMAL DISTRIBUTION:(BOTH NEGATIVE AND POSTIVE VALUES):
-### YEO JOHNSON TRANSFORMATION:
-```PYTHON
-df["Moderate Negative Skew_YEOJOHNSON"],parameters=stats.yeojohnson(df["Moderate Negative Skew"])
-df
-```
-### OUTPUT:
-![alt text](Screenshot/image18.png)
-
-### FIND THE SKEWNESS:
-```PYTHON
-df.skew()
-```
-### OUTPUT:
-![alt text](Screenshot/image19.png)
-
-### ANALYSING THE DATA IN THE VISUALIZATION WAY:
-```PYTHON
+```python
 import seaborn as sns
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
-
-
-sm.qqplot(df['Moderate Negative Skew'],line='45')
+sm.qqplot(df["Moderate Negative Skew"],line='45')
 plt.show()
 ```
-### OUTPUT:
-![alt text](Screenshot/image20.png)
+![image](https://github.com/user-attachments/assets/f3710ce9-e1aa-4770-a953-7d0ffc7a42b2)
 
-### VISUALISE THE DATA INTO THE RECIPROCAL FORM:
-```PYTHON
-sm.qqplot(np.reciprocal(df['Moderate Negative Skew']),line='45')
-plt.show()
-```
-### OUTPUT:
-![alt text](Screenshot/image21.png)
 
-### PERFORMS QUANTILE TRANSFORMER(Dataset into a uniform or normal data distribution):
-```PYTHON
+
+```python
 from sklearn.preprocessing import QuantileTransformer
+qt=QuantileTransformer(output_distribution='normal',n_quantiles=891)
 
-qt=QuantileTransformer(output_distribution='normal')
+df["Moderate Negative Skew"]=qt.fit_transform(df[["Moderate Negative Skew"]])
 
-df["Moderate Negative Skew_1"] = qt.fit_transform(df["Moderate Negative Skew"].values.reshape(-1, 1))
-```
-### OUTPUT:
-![alt text](Screenshot/image22.png)
-
-### CHECK WHETHER IT IS NORMALIZED FORM:
-```PYTHON
-sm.qqplot(df['Moderate Negative Skew_1'],line='45')
+sm.qqplot(df["Moderate Negative Skew"],line='45')
 plt.show()
 ```
-### OUTPUT:
-![alt text](Screenshot/image23.png)
+![image](https://github.com/user-attachments/assets/3fdfa646-b1b5-44e6-95f8-3cc6241c9198)
 
-### PERFORMS QUANTITLE TRANFORMER:
-```PYTHON
+
+
+```python
 df["Highly Negative Skew_1"]=qt.fit_transform(df[["Highly Negative Skew"]])
-sm.qqplot(df['Highly Negative Skew'],line='45')
+sm.qqplot(df["Highly Negative Skew"],line='45')
 plt.show()
 ```
-### OUTPUT:
-![alt text](Screenshot/image24.png)
 
-### CHECK WHETHER IT IS NORMALIZED FORM:
-```PYTHON
-sm.qqplot(df['Highly Negative Skew_1'],line='45')
+
+
+```python
+sm.qqplot(df["Highly Negative Skew_1"],line='45')
 plt.show()
 ```
-### OUTPUT:
-![alt text](Screenshot/image25.png)
 
-### DISPLAY THE FINALIZED DATASET FOR THE TRANSFOMRED DATASET:
-```PYTHON
-df
+![Screenshot 2024-10-01 114501](https://github.com/user-attachments/assets/a7fd36c4-f9b5-439c-ac27-e669ba86ed9a)
+
+```python
+sm.qqplot(np.reciprocal(df["Moderate Negative Skew"]),line='45')
+plt.show()
 ```
-### OUTPUT:
-![alt text](Screenshot/image26.png)
+![image](https://github.com/user-attachments/assets/8feebab1-2479-4896-9999-f0832d1b0a7b)
+
+
+
 
 ## RESULT:
-
 Thus the given data, Feature Encoding, Transformation process and save the data to a file was performed successfully.
-       
-
        
